@@ -43,7 +43,7 @@ void setup() {
   digitalWrite(11, HIGH);
   digitalWrite(12, LOW);
   delay(500);
-  digitalWrite(11, LOW)
+  digitalWrite(11, LOW);
   
 }
 
