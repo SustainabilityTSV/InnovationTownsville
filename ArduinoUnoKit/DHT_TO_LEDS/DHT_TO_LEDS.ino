@@ -1,26 +1,27 @@
-// Example testing sketch for various DHT humidity/temperature sensors
-// Written by ladyada, public domain
+/*
+  DHT_TO_LEDS
+  Author: Dylan VanDerWal
+  Licence: Open source
+  feel free to modify and distrobute. No Warrenties.
+  
+  For video tutorial on this setup, Here:
+*/
 
 #include "DHT.h"
 
 #define DHTPIN 8     // what digital pin we're connected to
 
-// Uncomment whatever type you're using!
-//#define DHTTYPE DHT11   // DHT 11
-#define DHTTYPE DHT22   // DHT 22  (AM2302), AM2321
-//#define DHTTYPE DHT21   // DHT 21 (AM2301)
+#define DHTTYPE DHT22   // Define the type of DHT: DHT 22  (AM2302), AM2321
 
-// Connect pin 1 (on the left) of the sensor to +5V
-// NOTE: If using a board with 3.3V logic like an Arduino Due connect pin 1
-// to 3.3V instead of 5V!
-// Connect pin 2 of the sensor to whatever your DHTPIN is
+// Connect pin 1 (on the left) of the sensor(Front is the grided side) to the 3.3
+// Connect pin 2 of the sensor to Digital PWM pin 8
 // Connect pin 4 (on the right) of the sensor to GROUND
-// Connect a 10K resistor from pin 2 (data) to pin 1 (power) of the sensor
+// Connect Short leg of all LED's to a 220Ohm resistor (RED, RED, BROWN, GOLD) and connect the other end of the resistors to GROUND
+// Connect the long leg of the green LED to Pin 13
+// Connect the long leg of the Yellow LED to Pin 12
+// Connect the long leg of the red LED to Pin 11
 
 // Initialize DHT sensor.
-// Note that older versions of this library took an optional third parameter to
-// tweak the timings for faster processors.  This parameter is no longer needed
-// as the current DHT reading algorithm adjusts itself to work on faster procs.
 DHT dht(DHTPIN, DHTTYPE);
 
 void setup() {
@@ -31,6 +32,19 @@ void setup() {
   pinMode(12, OUTPUT);
   pinMode(11, OUTPUT);
   dht.begin();
+  
+  // Comment out the following section if you don't want flashing startup for LED Testing
+  // THis section was designed to test the LED's to make sure they are working, and plugged in the right way.
+  digitalWrite(13, HIGH);
+  delay(500);
+  digitalWrite(12, HIGH);
+  digitalWrite(13, LOW);
+  delay(500);
+  digitalWrite(11, HIGH);
+  digitalWrite(12, LOW);
+  delay(500);
+  digitalWrite(11, LOW)
+  
 }
 
 void loop() {
@@ -56,6 +70,8 @@ void loop() {
   // Compute heat index in Celsius (isFahreheit = false)
   float hic = dht.computeHeatIndex(t, h, false);
 
+
+//Comment out the following section if you do not need to have the board outputting to serial
   Serial.print("Humidity: ");
   Serial.print(h);
   Serial.print(" %\t");
@@ -69,27 +85,34 @@ void loop() {
   Serial.print(" *C ");
   Serial.print(hif);
   Serial.println(" *F");
+// Stop Commenting
 
   if(t>25){
+    // If temp is above 25 deg, turn on green LED
     digitalWrite(13, HIGH);
     }
     
   if(t<25){
+    // If temp is Below 25 deg, turn off green LED
     digitalWrite(13, LOW);
     }
   if(t>30){
+    // If temp is above 30 deg, turn on yellow LED
     digitalWrite(12, HIGH);
     }
     
   if(t<30){
+    // If temp is Below 30 deg, turn off yellow LED
     digitalWrite(12, LOW);
     }
 
   if(t>35){
+    // If temp is above 35 deg, turn on red LED
     digitalWrite(11, HIGH);
     }
     
   if(t<35){
+    // If temp is Below 35 deg, turn off red LED
     digitalWrite(11, LOW);
     }
 }
