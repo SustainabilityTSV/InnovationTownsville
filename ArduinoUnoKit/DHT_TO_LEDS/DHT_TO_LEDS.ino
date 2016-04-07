@@ -16,7 +16,7 @@
 // Connect pin 1 (on the left) of the sensor(Front is the grided side) to the 3.3
 // Connect pin 2 of the sensor to Digital PWM pin 8
 // Connect pin 4 (on the right) of the sensor to GROUND
-// Connect Short leg of all LED's to a 220Ohm resistor (RED, RED, BROWN, GOLD) and connect the other end of the resistors to GROUND
+// Connect Short leg of all LED's to a 220 Ohm resistor (RED, RED, BROWN, GOLD) and connect the other end of the resistors to GROUND
 // Connect the long leg of the green LED to Pin 13
 // Connect the long leg of the Yellow LED to Pin 12
 // Connect the long leg of the red LED to Pin 11
